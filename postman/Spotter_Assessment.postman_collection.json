@@ -1,0 +1,72 @@
+{
+  "info": {
+    "name": "Spotter Assessment — Route API",
+    "description": "Demonstrates POST /api/v1/route/. Start the server first: python manage.py runserver. Base URL: http://127.0.0.1:8000",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000" }
+  ],
+  "item": [
+    {
+      "name": "1. Long route (KC to LA, multiple fuel stops)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"origin\": \"Kansas City, MO\",\n  \"destination\": \"Los Angeles, CA\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/v1/route/", "host": ["{{base_url}}"], "path": ["api", "v1", "route", ""] }
+      }
+    },
+    {
+      "name": "2. Short route (KC to STL, no stops required)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"origin\": \"Kansas City, MO\",\n  \"destination\": \"St. Louis, MO\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/v1/route/", "host": ["{{base_url}}"], "path": ["api", "v1", "route", ""] }
+      }
+    },
+    {
+      "name": "3. Invalid input (400)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"origin\": \"not a location\",\n  \"destination\": \"St. Louis, MO\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/v1/route/", "host": ["{{base_url}}"], "path": ["api", "v1", "route", ""] }
+      }
+    },
+    {
+      "name": "4. Unknown city (400)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"origin\": \"NotARealCityName, MO\",\n  \"destination\": \"St. Louis, MO\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/v1/route/", "host": ["{{base_url}}"], "path": ["api", "v1", "route", ""] }
+      }
+    },
+    {
+      "name": "5. Origin equals destination (400)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"origin\": \"Kansas City, MO\",\n  \"destination\": \"Kansas City, MO\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/v1/route/", "host": ["{{base_url}}"], "path": ["api", "v1", "route", ""] }
+      }
+    }
+  ]
+}
